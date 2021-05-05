@@ -18,7 +18,10 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
         require('autoprefixer'),
     ])
-    .browserSync('wallet.test')
+    .browserSync({
+        proxy: 'localhost',
+        open: false,
+    })
     .webpackConfig(require('./webpack.config'));
 
 if (mix.inProduction()) {
