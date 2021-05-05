@@ -15,20 +15,31 @@
                 </div>
             </div>
         </div>
+
+        <div class="py-4">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <wallet-cards :wallets="wallets"></wallet-cards>
+            </div>
+        </div>
     </breeze-authenticated-layout>
 </template>
 
 <script>
-    import BreezeAuthenticatedLayout from '@/Layouts/Authenticated'
+import BreezeAuthenticatedLayout from '@/Layouts/Authenticated'
+import WalletCards from "@/Components/WalletCards";
+import WalletItem from "@/Components/WalletItem";
 
-    export default {
-        components: {
-            BreezeAuthenticatedLayout,
-        },
+export default {
+    components: {
+        BreezeAuthenticatedLayout,
+        WalletCards,
+        WalletItem,
+    },
 
-        props: {
-            auth: Object,
-            errors: Object,
-        },
-    }
+    props: {
+        auth: Object,
+        errors: Object,
+        wallets: Array,
+    },
+}
 </script>

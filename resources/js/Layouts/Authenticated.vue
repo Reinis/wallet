@@ -18,6 +18,9 @@
                                 <breeze-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </breeze-nav-link>
+                                <breeze-nav-link :href="route('wallet.create')" :active="route().current('wallet.create')">
+                                    New Wallet
+                                </breeze-nav-link>
                             </div>
                         </div>
 
