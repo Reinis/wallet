@@ -9,17 +9,22 @@
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
                                 <inertia-link :href="route('dashboard')">
-                                    <breeze-application-logo class="block h-9 w-auto" />
+                                    <breeze-application-logo class="block h-9 w-auto"/>
                                 </inertia-link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <breeze-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
+                                <breeze-nav-link :active="route().current('dashboard')" :href="route('dashboard')">
                                     Dashboard
                                 </breeze-nav-link>
-                                <breeze-nav-link :href="route('wallet.create')" :active="route().current('wallet.create')">
+                                <breeze-nav-link :active="route().current('wallet.create')"
+                                                 :href="route('wallet.create')">
                                     New Wallet
+                                </breeze-nav-link>
+                                <breeze-nav-link :active="route().current('transaction.create')"
+                                                 :href="route('transaction.create')">
+                                    New Transaction
                                 </breeze-nav-link>
                             </div>
                         </div>
@@ -30,18 +35,23 @@
                                 <breeze-dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
-                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                            <button
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                type="button">
                                                 {{ $page.props.auth.user.name }}
 
-                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" fill="currentColor"
+                                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path clip-rule="evenodd"
+                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                          fill-rule="evenodd"/>
                                                 </svg>
                                             </button>
                                         </span>
                                     </template>
 
                                     <template #content>
-                                        <breeze-dropdown-link :href="route('logout')" method="post" as="button">
+                                        <breeze-dropdown-link :href="route('logout')" as="button" method="post">
                                             Log Out
                                         </breeze-dropdown-link>
                                     </template>
@@ -51,10 +61,18 @@
 
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
-                            <button @click="showingNavigationDropdown = ! showingNavigationDropdown" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                    <path :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <button
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                                @click="showingNavigationDropdown = ! showingNavigationDropdown">
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
+                                        d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"/>
+                                    <path
+                                        :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
+                                        d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"/>
                                 </svg>
                             </button>
                         </div>
@@ -62,9 +80,10 @@
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
+                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
+                     class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <breeze-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
+                        <breeze-responsive-nav-link :active="route().current('dashboard')" :href="route('dashboard')">
                             Dashboard
                         </breeze-responsive-nav-link>
                     </div>
@@ -77,7 +96,7 @@
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <breeze-responsive-nav-link :href="route('logout')" method="post" as="button">
+                            <breeze-responsive-nav-link :href="route('logout')" as="button" method="post">
                                 Log Out
                             </breeze-responsive-nav-link>
                         </div>
@@ -86,40 +105,42 @@
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header v-if="$slots.header" class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
+                    <slot name="header"/>
                 </div>
             </header>
 
             <!-- Page Content -->
             <main>
-                <slot />
+                <slot/>
             </main>
         </div>
     </div>
 </template>
 
 <script>
-    import BreezeApplicationLogo from '@/Components/ApplicationLogo'
-    import BreezeDropdown from '@/Components/Dropdown'
-    import BreezeDropdownLink from '@/Components/DropdownLink'
-    import BreezeNavLink from '@/Components/NavLink'
-    import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink'
+import {Link as InertiaLink} from '@inertiajs/inertia-vue3'
+import BreezeApplicationLogo from '@/Components/ApplicationLogo'
+import BreezeDropdown from '@/Components/Dropdown'
+import BreezeDropdownLink from '@/Components/DropdownLink'
+import BreezeNavLink from '@/Components/NavLink'
+import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink'
 
-    export default {
-        components: {
-            BreezeApplicationLogo,
-            BreezeDropdown,
-            BreezeDropdownLink,
-            BreezeNavLink,
-            BreezeResponsiveNavLink,
-        },
+export default {
+    components: {
+        BreezeApplicationLogo,
+        BreezeDropdown,
+        BreezeDropdownLink,
+        BreezeNavLink,
+        BreezeResponsiveNavLink,
+        InertiaLink,
+    },
 
-        data() {
-            return {
-                showingNavigationDropdown: false,
-            }
-        },
-    }
+    data() {
+        return {
+            showingNavigationDropdown: false,
+        }
+    },
+}
 </script>

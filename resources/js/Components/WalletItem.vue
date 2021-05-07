@@ -1,5 +1,5 @@
 <template>
-    <inertia-link :href="'/wallet/' + wallet.id + '/edit'">
+    <inertia-link :href="'/wallet/' + wallet.id">
         <div class="p-4 bg-gray-400 w-48 shadow border-b rounded">
             <div class="text-2xl font-bold">{{ wallet.name }}</div>
             <div>{{ wallet.description }}</div>

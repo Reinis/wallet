@@ -15,14 +15,18 @@ class Transaction extends Model
 
     protected $fillable = [
         'operation_id',
+        'wallet_id',
+        'other',
         'debit',
         'credit',
         'currency',
+        'fraudulent',
         'notes',
     ];
 
     protected $casts = [
-        'amount' => MoneyCast::class . ':currency',
+        'debit' => MoneyCast::class . ':currency',
+        'credit' => MoneyCast::class . ':currency',
     ];
 
     public function wallet()

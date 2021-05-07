@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,12 +29,30 @@ class Wallet extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function getBalanceAttribute()
+    public function getBalanceAttribute(): Money
     {
-        return $this->transactions->sum(
-            function ($transaction) {
-                return $transaction->debit - $transaction->credit;
-            }
+        $debit = $this->transactions->reduce(
+            function ($carry, $transaction) {
+                if (!$transaction->debit) {
+                    return $carry;
+                }
+
+                return $carry->add($transaction->debit);
+            },
+            Money::EUR(0)
         );
+
+        $credit = $this->transactions->reduce(
+            function ($carry, $transaction) {
+                if (!$transaction->credit) {
+                    return $carry;
+                }
+
+                return $carry->add($transaction->credit);
+            },
+            Money::EUR(0)
+        );
+
+        return $debit->subtract($credit);
     }
 }

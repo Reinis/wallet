@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WalletController;
 use App\Models\Wallet;
 use Illuminate\Foundation\Application;
@@ -62,3 +63,28 @@ Route::post(
     '/wallet/{wallet}/delete',
     [WalletController::class, 'delete']
 )->middleware(['auth', 'verified'])->name('wallet.delete');
+
+Route::get(
+    '/wallet/{wallet}',
+    [WalletController::class, 'show']
+)->middleware(['auth', 'verified'])->name('wallet.show');
+
+Route::get(
+    '/transaction/create',
+    [TransactionController::class, 'create']
+)->middleware(['auth', 'verified'])->name('transaction.create');
+
+Route::post(
+    '/transaction/create',
+    [TransactionController::class, 'save']
+)->middleware(['auth', 'verified'])->name('transaction.save');
+
+Route::post(
+    '/transaction/{transaction}/mark',
+    [TransactionController::class, 'mark']
+)->middleware(['auth', 'verified'])->name('transaction.mark');
+
+Route::post(
+    '/transaction/{transaction}/delete',
+    [TransactionController::class, 'delete']
+)->middleware(['auth', 'verified'])->name('transaction.delete');

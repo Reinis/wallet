@@ -19,6 +19,16 @@ class WalletController extends Controller
     }
 
     /**
+     * Display wallet contents and transaction history.
+     */
+    public function show(Wallet $wallet)
+    {
+        $balance = $wallet->balance;
+
+        return Inertia::render('Wallet/Show', compact('balance', 'wallet'));
+    }
+
+    /**
      * Handle an incoming wallet creation request.
      */
     public function save(Request $request)

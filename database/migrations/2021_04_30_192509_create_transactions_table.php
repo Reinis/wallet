@@ -16,9 +16,12 @@ class CreateTransactionsTable extends Migration
             function (Blueprint $table) {
                 $table->id();
                 $table->integer('operation_id')->unsigned()->nullable();
-                $table->integer('debit')->unsigned()->nullable();
-                $table->integer('credit')->unsigned()->nullable();
+                $table->foreignId('wallet_id')->constrained();
+                $table->string('other');
+                $table->unsignedDecimal('debit')->nullable();
+                $table->unsignedDecimal('credit')->nullable();
                 $table->string('currency');
+                $table->boolean('fraudulent')->default(false);
                 $table->text('notes');
                 $table->timestamps();
             }
