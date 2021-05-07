@@ -1,12 +1,13 @@
 <template>
-    <breeze-validation-errors class="mb-4"/>
-
     <div class="flex justify-center">
+        <breeze-validation-errors class="mb-4"/>
+
         <form class="w-1/3 mt-16" @submit.prevent="submit">
             <breeze-input id="wallet-id" v-model="form.id" type="hidden"></breeze-input>
             <div>
                 <breeze-label for="name" value="Name"/>
-                <breeze-input id="name" v-model="form.name" autocomplete="name" autofocus class="mt-1 block w-full" required
+                <breeze-input id="name" v-model="form.name" autocomplete="name" autofocus class="mt-1 block w-full"
+                              required
                               type="text"/>
             </div>
 
@@ -34,14 +35,15 @@
 </template>
 
 <script>
-import Authenticated from "@/Layouts/Authenticated";
+import {Link as InertiaLink} from '@inertiajs/inertia-vue3'
+import Authenticated from '@/Layouts/Authenticated'
 import BreezeButton from '@/Components/Button'
 import BreezeInput from '@/Components/Input'
 import BreezeLabel from '@/Components/Label'
 import BreezeValidationErrors from '@/Components/ValidationErrors'
 
 export default {
-    name: "Create",
+    name: "edit-wallet",
 
     layout: Authenticated,
 
@@ -50,6 +52,7 @@ export default {
         BreezeInput,
         BreezeLabel,
         BreezeValidationErrors,
+        InertiaLink,
     },
 
     props: {

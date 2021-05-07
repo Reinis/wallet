@@ -6,12 +6,11 @@
             </h2>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        You're logged in!
-                    </div>
+        <div v-if="flash.message">
+            <div class="sm:px-6 lg:px-8">
+                <div
+                    class="p-2 m-4 sm:rounded text-center bg-green-500 mx-auto sm:px-6 lg:px-8">
+                    {{ flash.message }}
                 </div>
             </div>
         </div>
@@ -39,6 +38,7 @@ export default {
     props: {
         auth: Object,
         errors: Object,
+        flash: Object,
         wallets: Array,
     },
 }
