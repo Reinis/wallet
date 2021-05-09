@@ -17,3 +17,19 @@
 .card:hover > .card-button {
     @apply block
 }
+
+.field {
+    @apply inline space-x-2
+}
+
+.field > :first-child {
+    @apply font-bold
+}
+
+.field-green > :last-child {
+    @apply text-green-500
+}
+
+.field-red > :last-child {
+    @apply text-red-500
+}
