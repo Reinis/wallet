@@ -3,15 +3,20 @@
         <div class="text-center mb-4">
             <span class="pr-2 font-bold">In:</span>
             <span class="pr-4 text-green-500">
-                {{ totalIn.formatted }}
+                {{ wallet.total_in.formatted }}
             </span>
             <span class="pr-2 font-bold">Out:</span>
             <span class="pr-4 text-red-500">
-                {{ totalOut.formatted }}
+                {{ wallet.total_out.formatted }}
             </span>
             <span class="pr-2 font-bold">Balance:</span>
-            <span :class="{'text-green-500': balance.amount >= 0, 'text-red-500': balance.amount < 0}">
-                {{ balance.formatted }}
+            <span
+                :class="{
+                    'text-green-500': wallet.balance.amount >= 0,
+                    'text-red-500': wallet.balance.amount < 0,
+                }"
+            >
+                {{ wallet.balance.formatted }}
             </span>
         </div>
         <div class="shadow overflow-hidden rounded border-b border-gray-200">
@@ -68,7 +73,7 @@ export default {
         BreezeButton,
     },
 
-    props: ['totalIn', 'totalOut', 'balance', 'wallet'],
+    props: ['wallet'],
 
     methods: {
         formatDateTime(timestamp) {

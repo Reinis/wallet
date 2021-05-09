@@ -36,7 +36,9 @@ Route::get(
 Route::get(
     '/dashboard',
     function () {
-        $wallets = Wallet::whereUserId(Auth::id())->get(['id','name','description']);
+        $wallets = Wallet::whereUserId(Auth::id())
+            ->get(['id','name','description'])
+            ->append(['balance']);
 
         return Inertia::render('Dashboard', compact('wallets'));
     }

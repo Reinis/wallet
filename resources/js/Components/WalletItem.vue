@@ -2,6 +2,17 @@
     <inertia-link :href="'/wallet/' + wallet.id">
         <div class="p-4 bg-gray-400 w-48 shadow border-b rounded">
             <div class="text-2xl font-bold">{{ wallet.name }}</div>
+            <div>
+                <sapan class="pr-2 font-bold">Balance:</sapan>
+                <span :class="{
+                        'text-green-600': wallet.balance.amount >= 0,
+                        'text-red-500': wallet.balance.amount < 0,
+                        'font-bold': true,
+                    }"
+                >
+                {{ wallet.balance.formatted }}
+                </span>
+            </div>
             <div>{{ wallet.description }}</div>
         </div>
     </inertia-link>
