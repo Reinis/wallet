@@ -31,7 +31,15 @@ class Wallet extends Model
 
     public function getBalanceAttribute(): Money
     {
-        $debit = $this->transactions->reduce(
+        $debit = $this->getTotalInAttribute();
+        $credit = $this->getTotalOutAttribute();
+
+        return $debit->subtract($credit);
+    }
+
+    public function getTotalInAttribute(): Money
+    {
+        return $this->transactions->reduce(
             function ($carry, $transaction) {
                 if (!$transaction->debit) {
                     return $carry;
@@ -41,8 +49,11 @@ class Wallet extends Model
             },
             Money::EUR(0)
         );
+    }
 
-        $credit = $this->transactions->reduce(
+    public function getTotalOutAttribute(): Money
+    {
+        return $this->transactions->reduce(
             function ($carry, $transaction) {
                 if (!$transaction->credit) {
                     return $carry;
@@ -52,7 +63,5 @@ class Wallet extends Model
             },
             Money::EUR(0)
         );
-
-        return $debit->subtract($credit);
     }
 }

@@ -24,8 +24,10 @@ class WalletController extends Controller
     public function show(Wallet $wallet)
     {
         $balance = $wallet->balance;
+        $totalIn = $wallet->totalIn;
+        $totalOut = $wallet->totalOut;
 
-        return Inertia::render('Wallet/Show', compact('balance', 'wallet'));
+        return Inertia::render('Wallet/Show', compact('totalIn', 'totalOut', 'balance', 'wallet'));
     }
 
     /**
