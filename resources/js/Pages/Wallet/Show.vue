@@ -48,7 +48,14 @@
                     </thead>
                     <tbody class="text-gray-700">
                     <tr v-for="transaction in wallet.transactions" :key="transaction.id" class="odd:bg-gray-100">
-                        <td class="w-8 text-center">{{ transaction.fraudulent ? '❗' : '' }}</td>
+                        <td class="w-8 px-1 text-center">
+                            <span v-if="transaction.fraudulent" class="has-tooltip">
+                                ❗
+                                <span v-if="transaction.fraudulent" class="tooltip">
+                                    Marked as fraudulent
+                                </span>
+                            </span>
+                        </td>
                         <td>{{ transaction.operation_id }}</td>
                         <td>{{ transaction.other_wallet_id ?? transaction.other }}</td>
                         <td class="text-green-500">{{ transaction.debit?.amount }}</td>

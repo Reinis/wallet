@@ -33,3 +33,15 @@
 .field-red > :last-child {
     @apply text-red-500
 }
+
+.has-tooltip {
+    @apply relative
+}
+
+.tooltip {
+    @apply hidden absolute z-20 bg-red-600 text-gray-100 font-bold p-2 rounded
+}
+
+.has-tooltip:hover > .tooltip {
+    @apply inline
+}
