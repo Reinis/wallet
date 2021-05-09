@@ -79,7 +79,7 @@ export default {
         errors: Object,
         flash: Object,
         wallets: Array,
-        allWallets: Array,
+        allWallets: Object,
         transaction: Object,
     },
 
