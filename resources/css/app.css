@@ -5,3 +5,15 @@
 .table th {
     @apply px-2 lg:px-4
 }
+
+.card {
+    @apply  relative p-4 bg-gray-300 w-48 shadow rounded
+}
+
+.card-button {
+    @apply text-2xl m-1 absolute top-0 right-0 z-10 hover:bg-gray-200 hidden
+}
+
+.card:hover > .card-button {
+    @apply block
+}
