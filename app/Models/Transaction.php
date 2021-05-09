@@ -17,6 +17,7 @@ class Transaction extends Model
         'operation_id',
         'wallet_id',
         'other',
+        'other_wallet_id',
         'debit',
         'credit',
         'currency',

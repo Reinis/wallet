@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactionPostRequest;
 use App\Models\Transaction;
 use App\Models\Wallet;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class TransactionController extends Controller
@@ -18,37 +17,42 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $wallets = Wallet::whereUserId(Auth::id())->get(['id','name']);
+        $wallets = Wallet::whereUserId(Auth::id())->get(['id', 'name']);
 
-        return Inertia::render('Transaction/Edit', compact('wallets'));
+        $allWallets = array_combine(...array_map(null, ...Wallet::get(['id', 'name'])->toArray()));
+
+        return Inertia::render('Transaction/Edit', compact('wallets', 'allWallets'));
     }
 
     /**
      * Handle an incoming transaction request.
      */
-    public function save(Request $request)
+    public function save(TransactionPostRequest $request)
     {
-        $request->validate(
-            [
-                'source' => Rule::exists('wallets', 'id')->where(function($query){
-                    return $query->where('user_id', '=', Auth::id());
-                }),
-                'target' => 'required|string|max:255',
-                'amount' => 'required|integer',
-                'currency' => 'required|string|max:3|regex:/^EUR$/',
-                'notes' => 'nullable|string|max:255',
-            ]
-        );
+        $validated = $request->validated();
+        $targetColumn = $validated['toWallet'] ? 'other_wallet_id' : 'other';
 
         Transaction::create(
             [
-                'wallet_id' => $request->source,
-                'other' => $request->target,
-                'credit' => $request->amount,
-                'currency' => $request->currency,
-                'notes' => $request->notes ?? '',
+                'wallet_id' => $validated['source'],
+                $targetColumn => $validated['target'],
+                'credit' => $validated['amount'],
+                'currency' => $validated['currency'],
+                'notes' => $validated['notes'] ?? '',
             ]
         );
+
+        if ($validated['toWallet']) {
+            Transaction::create(
+                [
+                    'wallet_id' => $validated['target'],
+                    'other_wallet_id' => $validated['source'],
+                    'debit' => $validated['amount'],
+                    'currency' => $validated['currency'],
+                    'notes' => $validated['notes'] ?? '',
+                ]
+            );
+        }
 
         session()->flash('message', "Transaction complete!");
 

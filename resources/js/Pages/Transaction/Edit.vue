@@ -11,11 +11,23 @@
                 </select>
             </div>
 
+            <breeze-input id="to-wallet" v-model="form.toWallet" type="hidden"/>
             <div class="mt-4">
-                <breeze-label for="target" value="Target"/>
+                <breeze-label :value="targetLabel" for="target"/>
                 <breeze-input id="target" v-model="form.target" autocomplete="target" autofocus
-                              class="mt-1 block w-full" required
-                              type="text"/>
+                              class="mt-1 block w-full" list="targets"
+                              required
+                              type="text"
+                />
+                <datalist id="targets">
+                    <option
+                        v-for="(name, index) in allWallets"
+                        :key="index"
+                        :value="index"
+                    >
+                        {{ name }}
+                    </option>
+                </datalist>
             </div>
 
             <div class="mt-4">
@@ -67,6 +79,7 @@ export default {
         errors: Object,
         flash: Object,
         wallets: Array,
+        allWallets: Array,
         transaction: Object,
     },
 
@@ -76,11 +89,23 @@ export default {
                 id: this.transaction?.id ?? 0,
                 source: this.transaction?.source ?? 0,
                 target: this.transaction?.target ?? '',
+                toWallet: this.transaction?.toWallet ?? false,
                 amount: this.transaction?.amount ?? 0,
                 currency: 'EUR',
                 notes: this.transaction?.notes ?? '',
             })
         }
+    },
+
+    computed: {
+        toWallet() {
+            const isNumber = !isNaN(this.form.target) && !isNaN(parseInt(this.form.target));
+            this.form.toWallet = isNumber
+            return isNumber
+        },
+        targetLabel() {
+            return this.toWallet ? `Target: ${this.allWallets[this.form.target]}` : 'Target'
+        },
     },
 
     methods: {
