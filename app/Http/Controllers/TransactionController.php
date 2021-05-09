@@ -31,9 +31,11 @@ class TransactionController extends Controller
     {
         $validated = $request->validated();
         $targetColumn = $validated['toWallet'] ? 'other_wallet_id' : 'other';
+        $operation_id = Transaction::max('operation_id') + 1;
 
         Transaction::create(
             [
+                'operation_id' => $operation_id,
                 'wallet_id' => $validated['source'],
                 $targetColumn => $validated['target'],
                 'credit' => $validated['amount'],
@@ -45,6 +47,7 @@ class TransactionController extends Controller
         if ($validated['toWallet']) {
             Transaction::create(
                 [
+                    'operation_id' => $operation_id,
                     'wallet_id' => $validated['target'],
                     'other_wallet_id' => $validated['source'],
                     'debit' => $validated['amount'],
