@@ -37,6 +37,7 @@
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                dusk="profile-button"
                                                 type="button">
                                                 {{ $page.props.auth.user.name }}
 
@@ -51,7 +52,9 @@
                                     </template>
 
                                     <template #content>
-                                        <breeze-dropdown-link :href="route('logout')" as="button" method="post">
+                                        <breeze-dropdown-link :href="route('logout')" as="button" dusk="logout-button"
+                                                              method="post"
+                                        >
                                             Log Out
                                         </breeze-dropdown-link>
                                     </template>
