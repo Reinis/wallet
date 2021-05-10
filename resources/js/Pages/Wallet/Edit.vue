@@ -21,7 +21,8 @@
                     Cancel
                 </inertia-link>
 
-                <breeze-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class="ml-4">
+                <breeze-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class="ml-4"
+                               dusk="save-button">
                     Save
                 </breeze-button>
 
