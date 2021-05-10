@@ -27,7 +27,8 @@
                 </breeze-button>
 
                 <breeze-button v-if="wallet?.id" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                               class="ml-4 bg-red-600" @click.prevent="deleteWallet">
+                               class="ml-4 bg-red-600"
+                               dusk="delete-button" @click.prevent="deleteWallet">
                     Delete
                 </breeze-button>
             </div>
