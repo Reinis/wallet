@@ -19,7 +19,13 @@ class TransactionController extends Controller
     {
         $wallets = Wallet::whereUserId(Auth::id())->get(['id', 'name']);
 
-        $allWallets = array_combine(...array_map(null, ...Wallet::get(['id', 'name'])->toArray()));
+        $allWallets = array_replace(
+            [],
+            ...array_map(
+                static fn(array $wallet): array => [$wallet['id'] => $wallet['name']],
+                Wallet::get(['id', 'name'])->toArray()
+            )
+        );
 
         return Inertia::render('Transaction/Edit', compact('wallets', 'allWallets'));
     }
