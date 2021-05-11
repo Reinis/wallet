@@ -64,11 +64,11 @@
                         <td class="text-center">{{ formatDateTime(transaction.created_at) }}</td>
                         <td class="text-center">
                             <form @submit.prevent="submit">
-                                <breeze-button class="px-2 py-1 w-24 justify-center"
+                                <breeze-button class="px-2 py-1 w-24 justify-center" dusk="mark-button"
                                                @click="toggleMark(transaction.id)">
                                     {{ transaction.fraudulent ? 'Unmark' : 'Mark' }}
                                 </breeze-button>
-                                <breeze-button class="px-2 py-1 w-24 justify-center"
+                                <breeze-button class="px-2 py-1 w-24 justify-center" dusk="delete-button"
                                                @click="deleteTransaction(transaction.id)">Delete
                                 </breeze-button>
                             </form>
