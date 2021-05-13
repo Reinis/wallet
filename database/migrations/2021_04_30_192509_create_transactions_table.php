@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             function (Blueprint $table) {
                 $table->id();
                 $table->integer('operation_id')->unsigned()->nullable();
-                $table->foreignId('wallet_id')->constrained();
+                $table->foreignId('wallet_id')->constrained()->cascadeOnDelete();
                 $table->string('other')->nullable();
                 $table->foreignIdFor(Wallet::class, 'other_wallet_id')->nullable();
                 $table->unsignedDecimal('debit')->nullable();
