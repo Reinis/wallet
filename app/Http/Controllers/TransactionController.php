@@ -33,7 +33,7 @@ class TransactionController extends Controller
     /**
      * Handle an incoming transaction request.
      */
-    public function save(TransactionPostRequest $request)
+    public function store(TransactionPostRequest $request)
     {
         $validated = $request->validated();
         $targetColumn = $validated['toWallet'] ? 'other_wallet_id' : 'other';
@@ -82,7 +82,7 @@ class TransactionController extends Controller
     /**
      * Delete a transaction.
      */
-    public function delete(Transaction $transaction)
+    public function destroy(Transaction $transaction)
     {
         $transaction->delete();
 

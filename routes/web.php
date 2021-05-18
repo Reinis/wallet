@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WalletController;
-use App\Models\Wallet;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -33,60 +32,29 @@ Route::get(
     }
 );
 
-Route::get(
-    '/dashboard',
-    function () {
-        $wallets = Wallet::whereUserId(Auth::id())
-            ->get(['id','name','description'])
-            ->append(['balance']);
-
-        return Inertia::render('Dashboard', compact('wallets'));
-    }
-)->middleware(['auth', 'verified'])->name('dashboard');
-
 require __DIR__ . '/auth.php';
 
-Route::get(
-    '/wallet/create',
-    [WalletController::class, 'create']
-)->middleware(['auth', 'verified'])->name('wallet.create');
+Route::middleware(['auth', 'verified'])->group(
+    function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::post(
-    '/wallet/create',
-    [WalletController::class, 'save']
-)->middleware(['auth', 'verified'])->name('wallet.save');
+        Route::prefix('wallet')->name('wallet.')->where(['wallet' => '[0-9]+'])->group(
+            function () {
+                Route::get('/create', [WalletController::class, 'create'])->name('create');
+                Route::post('/create', [WalletController::class, 'store'])->name('store');
+                Route::get('/{wallet}/edit', [WalletController::class, 'edit'])->name('edit');
+                Route::delete('/{wallet}', [WalletController::class, 'destroy'])->name('destroy');
+                Route::get('/{wallet}', [WalletController::class, 'show'])->name('show');
+            }
+        );
 
-Route::get(
-    '/wallet/{wallet}/edit',
-    [WalletController::class, 'edit']
-)->middleware(['auth', 'verified'])->name('wallet.edit');
-
-Route::post(
-    '/wallet/{wallet}/delete',
-    [WalletController::class, 'delete']
-)->middleware(['auth', 'verified'])->name('wallet.delete');
-
-Route::get(
-    '/wallet/{wallet}',
-    [WalletController::class, 'show']
-)->middleware(['auth', 'verified'])->name('wallet.show');
-
-Route::get(
-    '/transaction/create',
-    [TransactionController::class, 'create']
-)->middleware(['auth', 'verified'])->name('transaction.create');
-
-Route::post(
-    '/transaction/create',
-    [TransactionController::class, 'save']
-)->middleware(['auth', 'verified'])->name('transaction.save');
-
-Route::post(
-    '/transaction/{transaction}/mark',
-    [TransactionController::class, 'mark']
-)->middleware(['auth', 'verified'])->name('transaction.mark');
-
-Route::post(
-    '/transaction/{transaction}/delete',
-    [TransactionController::class, 'delete']
-)->middleware(['auth', 'verified'])->name('transaction.delete');
+        Route::prefix('transaction')->name('transaction.')->where(['transaction' => '[0-9]+'])->group(
+            function () {
+                Route::get('/create', [TransactionController::class, 'create'])->name('create');
+                Route::post('/create', [TransactionController::class, 'store'])->name('store');
+                Route::post('/{transaction}/mark', [TransactionController::class, 'mark'])->name('mark');
+                Route::delete('/{transaction}', [TransactionController::class, 'destroy'])->name('destroy');
+            }
+        );
+    }
+);

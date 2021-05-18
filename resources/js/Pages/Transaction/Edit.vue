@@ -110,7 +110,7 @@ export default {
 
     methods: {
         submit() {
-            this.form.post(this.route('transaction.save'))
+            this.form.post(this.route('transaction.store'))
         },
     }
 }

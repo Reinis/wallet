@@ -75,10 +75,10 @@ export default {
 
     methods: {
         submit() {
-            this.form.post(this.route('wallet.save'))
+            this.form.post(this.route('wallet.store'))
         },
         deleteWallet() {
-            this.form.post(this.route('wallet.delete', {wallet: this.wallet.id}))
+            this.form.delete(this.route('wallet.destroy', {wallet: this.wallet.id}))
         }
     }
 }

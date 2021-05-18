@@ -31,7 +31,7 @@ class WalletController extends Controller
     /**
      * Handle an incoming wallet creation request.
      */
-    public function save(Request $request)
+    public function store(Request $request)
     {
         $request->validate(
             [
@@ -59,7 +59,7 @@ class WalletController extends Controller
         return Inertia::render('Wallet/Edit', compact('wallet'));
     }
 
-    public function delete(Wallet $wallet)
+    public function destroy(Wallet $wallet)
     {
         $wallet->delete();
 
