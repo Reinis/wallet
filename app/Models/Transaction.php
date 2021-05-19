@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Cknow\Money\MoneyCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Money\Currency;
+use Money\Money;
 
 /**
  * @mixin IdeHelperTransaction
@@ -18,17 +21,34 @@ class Transaction extends Model
         'wallet_id',
         'other',
         'other_wallet_id',
-        'debit',
-        'credit',
+        'debits',
+        'credits',
         'currency',
         'fraudulent',
         'notes',
     ];
 
-    protected $casts = [
-        'debit' => MoneyCast::class . ':currency',
-        'credit' => MoneyCast::class . ':currency',
-    ];
+    public function getCreditAttribute(): Money
+    {
+        return new Money($this->credits, new Currency($this->currency));
+    }
+
+    public function setCreditAttribute(Money $value): void
+    {
+        $this->credits = $value->getAmount();
+        $this->currency = $value->getCurrency()->getCode();
+    }
+
+    public function getDebitAttribute(): Money
+    {
+        return new Money($this->debits, new Currency($this->currency));
+    }
+
+    public function setDebitAttribute(Money $value): void
+    {
+        $this->debits = $value->getAmount();
+        $this->currency = $value->getCurrency()->getCode();
+    }
 
     public function wallet()
     {

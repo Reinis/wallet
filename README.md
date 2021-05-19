@@ -31,19 +31,15 @@
 ### Tests
 
 - Unit tests (none)
-- Feature tests (incomplete) - covers authentication
+- Feature tests (complete) - covers user stories
 - Browser tests (complete) - covers user stories
 
 ### Ideas for further development
 
 - Improve user authentication by introducing multi-factor authentication using Laravel Fortify
-- Store money in database as integers instead of strings
-    - There is a pull request [1] for that, or it could be implemented from scratch
-- Add multiple currency support [2]
+- Add multiple currency support [1]
 
-[1]: https://github.com/cknow/laravel-money/pull/74
-
-[2]: https://moneyphp.org/en/stable/features/currency-conversion.html
+[1]: https://moneyphp.org/en/stable/features/currency-conversion.html
 
 ## Demo
 

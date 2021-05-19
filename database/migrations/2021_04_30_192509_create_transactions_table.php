@@ -20,8 +20,8 @@ class CreateTransactionsTable extends Migration
                 $table->foreignId('wallet_id')->constrained()->cascadeOnDelete();
                 $table->string('other')->nullable();
                 $table->foreignIdFor(Wallet::class, 'other_wallet_id')->nullable();
-                $table->unsignedDecimal('debit')->nullable();
-                $table->unsignedDecimal('credit')->nullable();
+                $table->unsignedInteger('debits')->nullable();
+                $table->unsignedInteger('credits')->nullable();
                 $table->string('currency');
                 $table->boolean('fraudulent')->default(false);
                 $table->text('notes');
