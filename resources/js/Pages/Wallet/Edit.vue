@@ -1,6 +1,6 @@
 <template>
-    <div class="flex justify-center">
-        <breeze-validation-errors class="mb-4"/>
+    <div class="flex flex-col items-center">
+        <breeze-validation-errors class="mt-4 p-2"/>
 
         <form class="w-1/3 mt-16" @submit.prevent="submit">
             <breeze-input id="wallet-id" v-model="form.id" type="hidden"></breeze-input>

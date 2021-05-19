@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateWalletRequest;
 use App\Models\Wallet;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Services\CreateWalletService;
 use Inertia\Inertia;
 
 class WalletController extends Controller
@@ -31,25 +31,11 @@ class WalletController extends Controller
     /**
      * Handle an incoming wallet creation request.
      */
-    public function store(Request $request)
+    public function store(CreateWalletRequest $request, CreateWalletService $createWalletService)
     {
-        $request->validate(
-            [
-                'name' => 'required|string|max:255',
-                'description' => 'nullable|string|max:255',
-            ]
-        );
+        $createWalletService->store($request);
 
-        Wallet::upsert(
-            [
-                'id' => $request->id,
-                'name' => $request->name,
-                'user_id' => Auth::id(),
-                'description' => $request->description ?? '',
-            ],
-            ['id'],
-            ['name', 'description'],
-        );
+        session()->flash('message', "Wallet saved!");
 
         return redirect(RouteServiceProvider::HOME);
     }
