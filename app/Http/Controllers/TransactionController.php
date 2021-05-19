@@ -6,6 +6,7 @@ use App\Http\Requests\CreateTransactionRequest;
 use App\Models\Transaction;
 use App\Models\Wallet;
 use App\Providers\RouteServiceProvider;
+use App\Services\CreateTransactionService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -33,31 +34,9 @@ class TransactionController extends Controller
     /**
      * Handle an incoming transaction request.
      */
-    public function store(CreateTransactionRequest $request)
+    public function store(CreateTransactionRequest $request, CreateTransactionService $createTransactionService)
     {
-        $transaction = $request->validated();
-        $operationId = Transaction::max('operation_id') + 1;
-
-        Transaction::create(
-            [
-                'operation_id' => $operationId,
-                'wallet_id' => $transaction['source'],
-                'other_wallet_id' => $transaction['target'],
-                'credits' => $transaction['amount'],
-                'currency' => $transaction['currency'],
-                'notes' => $transaction['notes'] ?? '',
-            ]
-        );
-        Transaction::create(
-            [
-                'operation_id' => $operationId,
-                'wallet_id' => $transaction['target'],
-                'other_wallet_id' => $transaction['source'],
-                'debits' => $transaction['amount'],
-                'currency' => $transaction['currency'],
-                'notes' => $transaction['notes'] ?? '',
-            ]
-        );
+        $createTransactionService->store($request);
 
         session()->flash('message', "Transaction complete!");
 
