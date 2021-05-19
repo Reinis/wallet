@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TransactionPostRequest;
+use App\Http\Requests\CreateTransactionRequest;
 use App\Models\Transaction;
 use App\Models\Wallet;
 use App\Providers\RouteServiceProvider;
@@ -33,7 +33,7 @@ class TransactionController extends Controller
     /**
      * Handle an incoming transaction request.
      */
-    public function store(TransactionPostRequest $request)
+    public function store(CreateTransactionRequest $request)
     {
         $validated = $request->validated();
         $targetColumn = $validated['toWallet'] ? 'other_wallet_id' : 'other';

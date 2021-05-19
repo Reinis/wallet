@@ -6,7 +6,7 @@ use App\Models\Wallet;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
-class TransactionPostRequest extends FormRequest
+class CreateTransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
