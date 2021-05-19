@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Models\Wallet;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Validator;
 
 class CreateTransactionRequest extends FormRequest
 {
@@ -23,41 +22,10 @@ class CreateTransactionRequest extends FormRequest
     {
         return [
             'source' => 'required|exists:wallets,id',
-            'toWallet' => 'required|boolean',
+            'target' => 'required|integer|exists:wallets,id|different:source',
             'amount' => 'required|integer|gt:0',
             'currency' => 'required|string|max:3|regex:/^EUR$/',
             'notes' => 'nullable|string|max:255',
         ];
-    }
-
-    /**
-     * Configure the validator instance.
-     */
-    public function withValidator(Validator $validator): void
-    {
-        $validator->sometimes(
-            'target',
-            'required|string|max:255',
-            fn($input) => !$input->toWallet
-        );
-        $validator->sometimes(
-            'target',
-            'required|integer|exists:wallets,id|different:source',
-            fn($input) => $input->toWallet
-        );
-    }
-
-    /**
-     * Prepare data for validation.
-     */
-    public function prepareForValidation(): void
-    {
-        if ($this->get('toWallet')) {
-            $this->merge(
-                [
-                    'target' => filter_var($this->get('target'), FILTER_VALIDATE_INT),
-                ]
-            );
-        }
     }
 }

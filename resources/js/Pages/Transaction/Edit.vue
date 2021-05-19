@@ -11,7 +11,6 @@
                 </select>
             </div>
 
-            <breeze-input id="to-wallet" v-model="form.toWallet" type="hidden"/>
             <div class="mt-4">
                 <breeze-label :value="targetLabel" for="target"/>
                 <breeze-input id="target" v-model="form.target" autocomplete="target" autofocus
@@ -89,7 +88,6 @@ export default {
                 id: this.transaction?.id ?? 0,
                 source: this.transaction?.source ?? 0,
                 target: this.transaction?.target ?? '',
-                toWallet: this.transaction?.toWallet ?? false,
                 amount: this.transaction?.amount ?? 0,
                 currency: 'EUR',
                 notes: this.transaction?.notes ?? '',
@@ -98,13 +96,8 @@ export default {
     },
 
     computed: {
-        toWallet() {
-            const isNumber = !isNaN(this.form.target) && !isNaN(parseInt(this.form.target));
-            this.form.toWallet = isNumber
-            return isNumber
-        },
         targetLabel() {
-            return this.toWallet ? `Target: ${this.allWallets[this.form.target]}` : 'Target'
+            return `Target: ${this.allWallets[this.form.target]}`
         },
     },
 

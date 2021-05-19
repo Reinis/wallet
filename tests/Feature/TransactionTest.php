@@ -34,7 +34,6 @@ class TransactionTest extends TestCase
                 'id' => 0,
                 'source' => $source->id,
                 'target' => $target->id,
-                'toWallet' => true,
                 'amount' => 500,
                 'currency' => 'EUR',
                 'notes' => 'Test transaction',

@@ -3,7 +3,6 @@
 ### Assumptions
 
 - Transactions happen between the wallets only in the system
-- It is possible to transfer to an arbitrarily named account outside the system but there are no validity checks
 - The balance of a wallet can turn negative
 - All transactions are in EUR currency
 

@@ -23,7 +23,6 @@ class TransactionFactory extends Factory
         return [
             'operation_id' => null,
             'wallet_id' => Wallet::factory(),
-            'other' => null,
             'other_wallet_id' => Wallet::factory(),
             'debits' => null,
             'credits' => $this->faker->numberBetween(1),

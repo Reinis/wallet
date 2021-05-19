@@ -57,7 +57,7 @@
                             </span>
                         </td>
                         <td>{{ transaction.operation_id }}</td>
-                        <td>{{ transaction.other_wallet_id ?? transaction.other }}</td>
+                        <td>{{ transaction.other_wallet_id }}</td>
                         <td class="text-green-500">{{ transaction.debit?.amount }}</td>
                         <td class="text-red-500">{{ transaction.credit?.amount }}</td>
                         <td>{{ transaction.notes }}</td>

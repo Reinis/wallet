@@ -35,33 +35,29 @@ class TransactionController extends Controller
      */
     public function store(CreateTransactionRequest $request)
     {
-        $validated = $request->validated();
-        $targetColumn = $validated['toWallet'] ? 'other_wallet_id' : 'other';
+        $transaction = $request->validated();
         $operationId = Transaction::max('operation_id') + 1;
 
         Transaction::create(
             [
                 'operation_id' => $operationId,
-                'wallet_id' => $validated['source'],
-                $targetColumn => $validated['target'],
-                'credits' => $validated['amount'],
-                'currency' => $validated['currency'],
-                'notes' => $validated['notes'] ?? '',
+                'wallet_id' => $transaction['source'],
+                'other_wallet_id' => $transaction['target'],
+                'credits' => $transaction['amount'],
+                'currency' => $transaction['currency'],
+                'notes' => $transaction['notes'] ?? '',
             ]
         );
-
-        if ($validated['toWallet']) {
-            Transaction::create(
-                [
-                    'operation_id' => $operationId,
-                    'wallet_id' => $validated['target'],
-                    'other_wallet_id' => $validated['source'],
-                    'debits' => $validated['amount'],
-                    'currency' => $validated['currency'],
-                    'notes' => $validated['notes'] ?? '',
-                ]
-            );
-        }
+        Transaction::create(
+            [
+                'operation_id' => $operationId,
+                'wallet_id' => $transaction['target'],
+                'other_wallet_id' => $transaction['source'],
+                'debits' => $transaction['amount'],
+                'currency' => $transaction['currency'],
+                'notes' => $transaction['notes'] ?? '',
+            ]
+        );
 
         session()->flash('message', "Transaction complete!");
 
