@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
-class TransactionController extends Controller
+class TransactionsController extends Controller
 {
     /**
      * Display the transaction creation form.

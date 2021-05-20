@@ -8,7 +8,7 @@ use App\Providers\RouteServiceProvider;
 use App\Services\CreateWalletService;
 use Inertia\Inertia;
 
-class WalletController extends Controller
+class WalletsController extends Controller
 {
     /**
      * Display the wallet creation form.

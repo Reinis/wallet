@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\WalletController;
+use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\WalletsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -40,20 +40,20 @@ Route::middleware(['auth', 'verified'])->group(
 
         Route::prefix('wallet')->name('wallet.')->where(['wallet' => '[0-9]+'])->group(
             function () {
-                Route::get('/create', [WalletController::class, 'create'])->name('create');
-                Route::post('/create', [WalletController::class, 'store'])->name('store');
-                Route::get('/{wallet}/edit', [WalletController::class, 'edit'])->name('edit');
-                Route::delete('/{wallet}', [WalletController::class, 'destroy'])->name('destroy');
-                Route::get('/{wallet}', [WalletController::class, 'show'])->name('show');
+                Route::get('/create', [WalletsController::class, 'create'])->name('create');
+                Route::post('/create', [WalletsController::class, 'store'])->name('store');
+                Route::get('/{wallet}/edit', [WalletsController::class, 'edit'])->name('edit');
+                Route::delete('/{wallet}', [WalletsController::class, 'destroy'])->name('destroy');
+                Route::get('/{wallet}', [WalletsController::class, 'show'])->name('show');
             }
         );
 
         Route::prefix('transaction')->name('transaction.')->where(['transaction' => '[0-9]+'])->group(
             function () {
-                Route::get('/create', [TransactionController::class, 'create'])->name('create');
-                Route::post('/create', [TransactionController::class, 'store'])->name('store');
-                Route::post('/{transaction}/mark', [TransactionController::class, 'mark'])->name('mark');
-                Route::delete('/{transaction}', [TransactionController::class, 'destroy'])->name('destroy');
+                Route::get('/create', [TransactionsController::class, 'create'])->name('create');
+                Route::post('/create', [TransactionsController::class, 'store'])->name('store');
+                Route::post('/{transaction}/mark', [TransactionsController::class, 'mark'])->name('mark');
+                Route::delete('/{transaction}', [TransactionsController::class, 'destroy'])->name('destroy');
             }
         );
     }
