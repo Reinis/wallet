@@ -15,6 +15,8 @@
     - Min PHP version 7.4
 - Backend
     - Use money pattern ([MoneyPHP][moneyphp])
+    - Use service objects
+    - Use data transfer objects between requests and services
 - Routing
     - Inertia.js bridge frontend and backend, route server requests to avoid page reloads
     - CSRF tokens are managed under the hood by axios
