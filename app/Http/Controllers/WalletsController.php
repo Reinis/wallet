@@ -33,7 +33,7 @@ class WalletsController extends Controller
      */
     public function store(CreateWalletRequest $request, CreateWalletService $createWalletService)
     {
-        $createWalletService->store($request);
+        $createWalletService->store($request->validated());
 
         session()->flash('message', "Wallet saved!");
 

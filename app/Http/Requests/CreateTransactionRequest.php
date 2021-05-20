@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Dto\StoreTransactionServiceRequest;
 use App\Models\Wallet;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,5 +28,30 @@ class CreateTransactionRequest extends FormRequest
             'currency' => 'required|string|max:3|regex:/^EUR$/',
             'notes' => 'nullable|string|max:255',
         ];
+    }
+
+    /**
+     * Prepare data for validation.
+     */
+    public function prepareForValidation(): void
+    {
+        $this->merge(
+            [
+                'notes' => $this->get('notes') ?? '',
+            ]
+        );
+    }
+
+    public function validated(): StoreTransactionServiceRequest
+    {
+        $transaction = parent::validated();
+
+        return new StoreTransactionServiceRequest(
+            $transaction['source'],
+            $transaction['target'],
+            $transaction['amount'],
+            $transaction['currency'],
+            $transaction['notes'],
+        );
     }
 }

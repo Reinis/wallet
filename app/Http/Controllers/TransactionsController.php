@@ -36,7 +36,7 @@ class TransactionsController extends Controller
      */
     public function store(CreateTransactionRequest $request, CreateTransactionService $createTransactionService)
     {
-        $createTransactionService->store($request);
+        $createTransactionService->store($request->validated());
 
         session()->flash('message', "Transaction complete!");
 

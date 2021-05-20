@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Dto\StoreWalletServiceRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,6 +39,17 @@ class CreateWalletRequest extends FormRequest
             [
                 'description' => $this->get('description') ?? '',
             ]
+        );
+    }
+
+    public function validated(): StoreWalletServiceRequest
+    {
+        $wallet = parent::validated();
+
+        return new StoreWalletServiceRequest(
+            $wallet['name'],
+            $wallet['description'],
+            $wallet['id'],
         );
     }
 }

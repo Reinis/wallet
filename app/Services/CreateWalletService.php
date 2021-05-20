@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Http\Requests\CreateWalletRequest;
+use App\Models\Dto\StoreWalletServiceRequest;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\Auth;
 
 class CreateWalletService
 {
-    public function store(CreateWalletRequest $request): void
+    public function store(StoreWalletServiceRequest $wallet): void
     {
-        $wallet = $request->validated();
-
         Wallet::upsert(
             [
-                'id' => $wallet['id'],
-                'name' => $wallet['name'],
+                'id' => $wallet->getId(),
+                'name' => $wallet->getName(),
                 'user_id' => Auth::id(),
-                'description' => $wallet['description'],
+                'description' => $wallet->getDescription(),
             ],
             ['id'],
             ['name', 'description'],
