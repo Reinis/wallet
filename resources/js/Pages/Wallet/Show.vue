@@ -98,7 +98,7 @@ export default {
 
     methods: {
         formatDateTime(timestamp) {
-            return DateTime.fromISO(timestamp).toFormat('yyyy-mm-dd')
+            return DateTime.fromISO(timestamp).toFormat('yyyy-MM-dd')
         },
         toggleMark(transactionId) {
             this.$inertia.post(`/transaction/${transactionId}/mark`)
