@@ -27,8 +27,12 @@ class Transaction extends Model
         'notes',
     ];
 
-    public function getCreditAttribute(): Money
+    public function getCreditAttribute(): ?Money
     {
+        if ($this->credits === null) {
+            return null;
+        }
+
         return new Money($this->credits, new Currency($this->currency));
     }
 
@@ -38,8 +42,12 @@ class Transaction extends Model
         $this->currency = $value->getCurrency()->getCode();
     }
 
-    public function getDebitAttribute(): Money
+    public function getDebitAttribute(): ?Money
     {
+        if ($this->debits === null) {
+            return null;
+        }
+
         return new Money($this->debits, new Currency($this->currency));
     }
 

@@ -14,7 +14,7 @@
     - MariaDB SQL database
     - Min PHP version 7.4
 - Backend
-    - Use money pattern ([MoneyPHP][moneyphp] through `cknow/laravel-money`)
+    - Use money pattern ([MoneyPHP][moneyphp])
 - Routing
     - Inertia.js bridge frontend and backend, route server requests to avoid page reloads
     - CSRF tokens are managed under the hood by axios

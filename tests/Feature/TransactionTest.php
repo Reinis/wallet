@@ -116,12 +116,12 @@ class TransactionTest extends TestCase
         $user = User::factory()->create();
         $wallet = Wallet::factory()->for($user)->create();
         $transactions = Transaction::factory()->count(5)->for($wallet)->create();
-        $transactions->add(Transaction::factory(['credits'=>null, 'debits'=>256])->for($wallet)->create());
+        $transactions->add(Transaction::factory(['credits' => null, 'debits' => 256])->for($wallet)->create());
 
         $response = $this->actingAs($user)->get(route('wallet.show', $wallet));
         $walletReceived = $response->viewData('page')['props']['wallet'];
 
-        self::assertEquals(256, $walletReceived['total_in']['amount']);
-        self::assertEquals($transactions->sum(fn($x)=>$x->credits), $walletReceived['total_out']['amount']);
+        self::assertEquals(256, $walletReceived['total_in']->getAmount());
+        self::assertEquals($transactions->sum(fn($x) => $x->credits), $walletReceived['total_out']->getAmount());
     }
 }

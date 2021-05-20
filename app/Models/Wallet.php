@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Cknow\Money\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Money\Money;
 
 /**
  * @mixin IdeHelperWallet

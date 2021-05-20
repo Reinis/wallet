@@ -11,13 +11,13 @@
                 <div class="field field-green">
                     <span>In:</span>
                     <span>
-                        {{ wallet.total_in.formatted }}
+                        <Money :money="wallet.total_in"/>
                     </span>
                 </div>
                 <div class="field field-red">
                     <span>Out:</span>
                     <span>
-                        {{ wallet.total_out.formatted }}
+                        <Money :money="wallet.total_out" />
                     </span>
                 </div>
                 <div class="field">
@@ -28,7 +28,7 @@
                             'text-red-500': wallet.balance.amount < 0,
                         }"
                     >
-                        {{ wallet.balance.formatted }}
+                        <Money :money="wallet.balance"/>
                     </span>
                 </div>
             </div>
@@ -58,8 +58,8 @@
                         </td>
                         <td>{{ transaction.operation_id }}</td>
                         <td>{{ transaction.other_wallet_id }}</td>
-                        <td class="text-green-500">{{ transaction.debit?.amount }}</td>
-                        <td class="text-red-500">{{ transaction.credit?.amount }}</td>
+                        <td class="text-green-500">{{ transaction.debits }}</td>
+                        <td class="text-red-500">{{ transaction.credits }}</td>
                         <td>{{ transaction.notes }}</td>
                         <td class="text-center">{{ formatDateTime(transaction.created_at) }}</td>
                         <td class="text-center">
@@ -83,11 +83,13 @@
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated'
 import BreezeButton from '@/Components/Button'
 import {DateTime} from 'luxon'
+import Money from "@/Components/Money";
 
 export default {
     name: "wallet-show",
 
     components: {
+        Money,
         BreezeAuthenticatedLayout,
         BreezeButton,
     },

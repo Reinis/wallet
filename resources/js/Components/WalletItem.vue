@@ -10,7 +10,7 @@
                         'font-bold': true,
                     }"
                 >
-                {{ wallet.balance.formatted }}
+                    <Money :money="wallet.balance"/>
                 </span>
             </div>
             <div>{{ wallet.description }}</div>
@@ -26,13 +26,15 @@
 
 <script>
 import {Link as InertiaLink} from '@inertiajs/inertia-vue3'
+import Money from "@/Components/Money";
 
 export default {
     name: "wallet-item",
     props: ['wallet'],
     components: {
+        Money,
         InertiaLink,
-    }
+    },
 }
 </script>
 
