@@ -42,6 +42,44 @@
 
 [1]: https://moneyphp.org/en/stable/features/currency-conversion.html
 
+## Setup
+
+Requirements:
+- PHP 7.4+
+- Docker
+- Bash
+- Git
+
+```bash
+$ # Clone the repository
+$ git clone git@github.com:Reinis/wallet
+$ cd wallet
+$ # Set up .env file
+$ cp .env.example .env
+$ # Install PHP dependencies
+$ composer update
+$ # Generate encryption key
+$ php artisan key:generate
+$ # Laravel Sail (Docker), update .env and write docker-compose.yml
+$ php artisan sail:install --with=mariadb
+$ alias sail='bash vendor/bin/sail'
+$ sail up -d
+$ # Laravel Mix (JavaScript, CSS)
+$ sail npm install
+$ # Compile assets
+$ sail npm run prod
+$ # Run unit and feature tests
+$ sail test
+$ # Open browser at localhost
+$ # ...
+$ # Stop docker services
+$ sail down
+```
+
+Note: Set `APP_PORT` in the `.env` file if you want the app to run on a specific port.
+
+For browser tests, selenium service has to be added.
+
 ## Demo
 
 ![Wallet demo](wallet-demo.gif)
