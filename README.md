@@ -80,6 +80,13 @@ Note: Set `APP_PORT` in the `.env` file if you want the app to run on a specific
 
 For browser tests, selenium service has to be added.
 
+```bash
+$ php artisan sail:install --with=mariadb,selenium
+$ sail up -d
+$ # Run browser tests
+$ sail dusk
+```
+
 ## Demo
 
 ![Wallet demo](wallet-demo.gif)
