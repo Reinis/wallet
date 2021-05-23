@@ -57,7 +57,7 @@ $ cd wallet
 $ # Set up .env file
 $ cp .env.example .env
 $ # Install PHP dependencies
-$ composer update
+$ composer install
 $ # Generate encryption key
 $ php artisan key:generate
 $ # Laravel Sail (Docker), update .env and write docker-compose.yml
@@ -66,8 +66,8 @@ $ alias sail='bash vendor/bin/sail'
 $ sail up -d
 $ # Laravel Mix (JavaScript, CSS)
 $ sail npm install
-$ # Compile assets
-$ sail npm run prod
+$ # Compile assets (prod, dev or watch)
+$ sail npm run dev
 $ # Run unit and feature tests
 $ sail test
 $ # Open browser at localhost
