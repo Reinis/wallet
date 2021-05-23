@@ -42,10 +42,50 @@
 
 [1]: https://moneyphp.org/en/stable/features/currency-conversion.html
 
-## Setup
+## Demo setup
+
+Requirements:
+- Docker
+- Bash
+- Git
+
+```bash
+$ git clone https://github.com/Reinis/wallet
+$ cd wallet/demo
+$ cp ../../.env.example 8.0/.env
+```
+
+Edit `demo/8.0/.env` file.
+
+```dotenv
+APP_URL=http://wallet.test
+APP_PORT=8080
+
+# Necessary when building the Docker image
+WWWUSER=1002
+WWWGROUP=1002
+
+DB_CONNECTION=mysql
+DB_HOST=mariadb
+DB_PORT=3306
+DB_DATABASE=wallet
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
+
+Start containers from the `demo` folder.
+
+```bash
+$ env -S $(cat 8.0/.env | sed 's/#.*//g' | xargs) docker-compose up
+```
+
+Go to `http://localhost:8080/register` to create a new user.
+
+## Setup for development with Laravel Sail
 
 Requirements:
 - PHP 7.4+
+- Composer
 - Docker
 - Bash
 - Git
