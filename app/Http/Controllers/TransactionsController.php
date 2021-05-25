@@ -23,8 +23,8 @@ class TransactionsController extends Controller
         $allWallets = array_replace(
             [],
             ...array_map(
-                static fn(array $wallet): array => [$wallet['id'] => $wallet['name']],
-                Wallet::get(['id', 'name'])->toArray()
+                static fn(array $wallet): array => [$wallet['id'] => "{$wallet['user']['name']}: {$wallet['name']}"],
+                Wallet::with('user')->get()->toArray()
             )
         );
 
