@@ -103,7 +103,8 @@ class WalletTest extends TestCase
 
         $response = $this->actingAs($user)->delete(route('wallet.destroy', $wallet));
 
-        $this->assertDatabaseCount('wallets', 0);
+        $this->assertDatabaseCount('wallets', 1);
+        self::assertEquals($wallet->id, Wallet::onlyTrashed()->get()->first()->id);
         $response->assertRedirect(RouteServiceProvider::HOME);
     }
 }
